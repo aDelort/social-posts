@@ -1,8 +1,9 @@
 import React from 'react'
 import {
-  ResponsiveContainer,
+  Legend,
   Scatter,
   ScatterChart,
+  Tooltip,
   XAxis,
   YAxis,
   ZAxis,
@@ -28,13 +29,27 @@ export const PostsChart: React.FC = () => {
   }))
 
   return (
-    <ResponsiveContainer id="posts-chart" width={1500} height={800}>
-      <ScatterChart>
-        <XAxis type="number" dataKey="x" name="Hour of the day" />
-        <YAxis type="number" dataKey="y" name="Day of the week" />
-        <ZAxis type="number" dataKey="z" name="Number of posts" />
-        <Scatter name="Number of posts" data={socialPostCounts} />
-      </ScatterChart>
-    </ResponsiveContainer>
+    <ScatterChart
+      id="posts-chart"
+      width={1500}
+      height={800}
+      margin={{
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+      }}
+    >
+      <XAxis type="number" dataKey="x" name="Hour of the day" />
+      <YAxis type="number" dataKey="y" name="Day of the week" />
+      <ZAxis type="number" dataKey="z" name="Number of posts" />
+      <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+      <Legend />
+      <Scatter
+        name="Number of posts by day of the week and hour of the day"
+        data={socialPostCounts}
+        fill="rgb(0,171,85)"
+      />
+    </ScatterChart>
   )
 }
