@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import {
   Legend,
@@ -22,11 +23,18 @@ const socialPostDates: SocialPostDate[] = [
 ]
 
 export const PostsChart: React.FC = () => {
-  const socialPostCounts = socialPostDates.map((socialPostDate) => ({
-    x: socialPostDate.dayHour,
-    y: socialPostDate.weekDay,
-    z: 1,
-  }))
+  const aggregatedSocialPosts = _.groupBy(socialPostDates, JSON.stringify)
+
+  const reducedSocialPosts = _.mapValues(aggregatedSocialPosts, (x) => x.length)
+
+  const socialPostCounts = _.map(reducedSocialPosts, (numberOfPosts, key) => {
+    const { dayHour, weekDay } = JSON.parse(key) as SocialPostDate
+    return {
+      x: dayHour,
+      y: weekDay,
+      z: numberOfPosts,
+    }
+  })
 
   return (
     <ScatterChart
@@ -42,7 +50,12 @@ export const PostsChart: React.FC = () => {
     >
       <XAxis type="number" dataKey="x" name="Hour of the day" />
       <YAxis type="number" dataKey="y" name="Day of the week" />
-      <ZAxis type="number" dataKey="z" name="Number of posts" />
+      <ZAxis
+        type="number"
+        dataKey="z"
+        name="Number of posts"
+        range={[200, 1000]}
+      />
       <Tooltip cursor={{ strokeDasharray: '3 3' }} />
       <Legend />
       <Scatter
