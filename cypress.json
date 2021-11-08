@@ -1,0 +1,10 @@
+{
+  "component": {
+    "testFiles": "**/*.spec.{js,ts,jsx,tsx}",
+    "componentFolder": "src"
+  },
+  "projectId": "zb7gjo",
+  "viewportWidth": 2000,
+  "viewportHeight": 1000,
+  "fixtureFolder": false
+}
