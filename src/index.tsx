@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './App'
+import { PostsChart } from './PostsChart'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PostsChart />
   </React.StrictMode>,
   document.getElementById('root')
 )
