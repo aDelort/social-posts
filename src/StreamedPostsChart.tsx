@@ -1,6 +1,8 @@
+import { x } from '@xstyled/styled-components'
 import { getDay, getHours, secondsToMilliseconds } from 'date-fns/fp'
 import React from 'react'
 import { PostsChart, SocialPostDate } from './PostsChart'
+import { PostsCount } from './PostsCount'
 
 export const SERVER_SENT_EVENTS_URL = 'http://stream.upfluence.co/stream'
 
@@ -46,5 +48,10 @@ export const StreamedPostsChart: React.FC = () => {
     return () => eventSource.close()
   }, [socialPosts])
 
-  return <PostsChart socialPostDates={socialPosts} />
+  return (
+    <x.div display="flex" flexDirection="row" alignItems="center">
+      <PostsChart socialPostDates={socialPosts} />
+      <PostsCount count={socialPosts.length} />
+    </x.div>
+  )
 }
