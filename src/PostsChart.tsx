@@ -10,6 +10,7 @@ import {
   ZAxis,
 } from 'recharts'
 import { format, setDay } from 'date-fns/fp'
+import { Payload } from 'recharts/types/component/DefaultTooltipContent'
 
 export type SocialPostDate = { weekDay: number; dayHour: number }
 
@@ -17,6 +18,17 @@ const dayName = (dayIndex: number): string =>
   _.flow(setDay(dayIndex), format('EEEE'))(new Date())
 
 const formatHours = (hour: number): string => `${hour}:00`
+
+const tooltipFormatter = (
+  value: number,
+  _name: string,
+  props: Payload<number, string>
+): string =>
+  props.dataKey === 'x'
+    ? formatHours(value)
+    : props.dataKey === 'y'
+    ? dayName(value)
+    : value.toString()
 
 export const PostsChart: React.FC<{ socialPostDates: SocialPostDate[] }> = ({
   socialPostDates,
@@ -71,7 +83,10 @@ export const PostsChart: React.FC<{ socialPostDates: SocialPostDate[] }> = ({
         name="Number of posts"
         range={[200, 1000]}
       />
-      <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+      <Tooltip
+        cursor={{ strokeDasharray: '3 3' }}
+        formatter={tooltipFormatter}
+      />
       <Legend />
       <Scatter
         name="Number of posts by day of the week and hour of the day"
