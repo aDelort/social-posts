@@ -9,8 +9,14 @@ import {
   YAxis,
   ZAxis,
 } from 'recharts'
+import { format, setDay } from 'date-fns/fp'
 
 export type SocialPostDate = { weekDay: number; dayHour: number }
+
+const dayName = (dayIndex: number): string =>
+  _.flow(setDay(dayIndex), format('EEEE'))(new Date())
+
+const formatHours = (hour: number): string => `${hour}:00`
 
 export const PostsChart: React.FC<{ socialPostDates: SocialPostDate[] }> = ({
   socialPostDates,
@@ -40,8 +46,25 @@ export const PostsChart: React.FC<{ socialPostDates: SocialPostDate[] }> = ({
         left: 20,
       }}
     >
-      <XAxis type="number" dataKey="x" name="Hour of the day" />
-      <YAxis type="number" dataKey="y" name="Day of the week" />
+      <XAxis
+        type="number"
+        dataKey="x"
+        tickCount={26}
+        name="Hour of the day"
+        tickFormatter={(h) => (h >= 0 && h <= 23 ? formatHours(h) : '')}
+        domain={[-1, 24]}
+      />
+      <YAxis
+        type="number"
+        dataKey="y"
+        tickCount={9}
+        reversed
+        name="Day of the week"
+        tickFormatter={(dayIndex) =>
+          dayIndex >= 0 && dayIndex <= 6 ? dayName(dayIndex) : ''
+        }
+        domain={[-1, 7]}
+      />
       <ZAxis
         type="number"
         dataKey="z"
