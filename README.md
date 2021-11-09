@@ -1,6 +1,34 @@
-# Getting Started with Create React App
+# Social posts
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+3-dimensional visualization of streamed social posts.
+
+[This](http://stream.upfluence.co/stream) HTTP endpoint streams data about posts processed by [Upfluence](https://www.upfluence.com/). This application is a visualization of that stream in real-time, as a punch card. The coordinates of the posts in the punch card depend on the hour of the day (X-Axis) and day of the week (Y-Axis) at which it was posted. The third dimension, the size of the points, represents the number of posts.
+
+Its latest version is deployed [here](https://social-posts-adelort.vercel.app).
+
+## Technical stack
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), with the Typescript template.
+
+### Librairies :
+
+- [Recharts](https://recharts.org/) - Composable charting library built for React
+- [date-fns](https://date-fns.org/) - Tool for manipulating dates
+- [Lodash](https://lodash.com/) - Utility librairy
+
+### UI :
+
+- [xstyled](https://xstyled.dev/) - Flexible Css-in-JS framework that allows to write CSS in the JSX tag notation, encapsulating the style with the component
+
+### Formatting and linting :
+
+- [Eslint](https://eslint.org/) - Static analyze of code, to catch some errors before the build
+- [Prettier](https://prettier.io/) - Formatting of the code
+
+### Testing
+
+- [Cypress](https://www.cypress.io/) Testing framework, for unit tests, integration tests and end-to-end tests. Allows to test React components.
+- [faker](https://github.com/Marak/faker.js/) - Used to generate fake data during tests
 
 ## Available Scripts
 
@@ -8,16 +36,7 @@ In the project directory, you can run:
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Runs the app in the development mode.
 
 ### `yarn build`
 
@@ -29,18 +48,14 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `yarn cy`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Launches Cypress
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `yarn cy-ct`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Launches Cypress for component testing
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Possible improvements
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+In order to keep it simple, the algorithm used in the component **PostsChart** performs a _groupBy_ on the whole set of collected data, without taking into account the previous _groupBy_. However, the relatively small amount of data streamed by the API does not induce performance issues, and allows the code to be more concise and understandable. With a larger amount of streamed data, a solution for scaling might be to insert the new streamed data in the previously computed array, instead of computing the whole array each time.
