@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { StreamedPostsChart } from './StreamedPostsChart'
+import { StreamedPostsChart } from './posts/StreamedPostsChart'
 
 ReactDOM.render(
   <React.StrictMode>
