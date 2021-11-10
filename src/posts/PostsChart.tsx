@@ -14,7 +14,7 @@ import { Payload } from 'recharts/types/component/DefaultTooltipContent'
 
 export type SocialPostDate = { weekDay: number; dayHour: number }
 
-const dayName = (dayIndex: number): string =>
+export const dayName = (dayIndex: number): string =>
   _.flow(setDay(dayIndex), format('EEEE'))(new Date())
 
 const formatHours = (hour: number): string => `${hour}:00`
