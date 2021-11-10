@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { PostsChart } from './PostsChart'
+import { StreamedPostsChart } from './StreamedPostsChart'
 
 ReactDOM.render(
   <React.StrictMode>
-    <PostsChart />
+    <StreamedPostsChart />
   </React.StrictMode>,
   document.getElementById('root')
 )

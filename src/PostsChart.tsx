@@ -10,19 +10,11 @@ import {
   ZAxis,
 } from 'recharts'
 
-type SocialPostDate = { weekDay: number; dayHour: number }
+export type SocialPostDate = { weekDay: number; dayHour: number }
 
-const socialPostDates: SocialPostDate[] = [
-  { dayHour: 22, weekDay: 0 },
-  { dayHour: 0, weekDay: 4 },
-  { dayHour: 13, weekDay: 2 },
-  { dayHour: 13, weekDay: 2 },
-  { dayHour: 12, weekDay: 3 },
-  { dayHour: 21, weekDay: 1 },
-  { dayHour: 2, weekDay: 5 },
-]
-
-export const PostsChart: React.FC = () => {
+export const PostsChart: React.FC<{ socialPostDates: SocialPostDate[] }> = ({
+  socialPostDates,
+}) => {
   const aggregatedSocialPosts = _.groupBy(socialPostDates, JSON.stringify)
 
   const reducedSocialPosts = _.mapValues(aggregatedSocialPosts, (x) => x.length)
