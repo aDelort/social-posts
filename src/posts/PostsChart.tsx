@@ -17,7 +17,7 @@ export type SocialPostDate = { weekDay: number; dayHour: number }
 export const dayName = (dayIndex: number): string =>
   _.flow(setDay(dayIndex), format('EEEE'))(new Date())
 
-const formatHours = (hour: number): string => `${hour}:00`
+export const formatHours = (hour: number): string => `${hour}:00`
 
 const tooltipFormatter = (
   value: number,
